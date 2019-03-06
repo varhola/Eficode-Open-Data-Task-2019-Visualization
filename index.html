@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--Bootstrap-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!--Chart.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+<title>My Application</title>
+
+<style>
+#myChart {
+	position:fixed;
+}
+</style>
+</head>
+
+<body>
+<div class="header">
+
+</div>
+
+<div class="main">
+
+<div class="row">
+	<div class="col-sm-4">
+		<ul>
+			<li class="list-group-item" data-toggle="collapse" data-target="#sensor1">
+				<h4>Sensor1</h4>
+			</li>
+				<table class="table" id="sensor1">
+					<tr><th>Date</th><th>Value</th></tr>
+				</table>
+			<li class="list-group-item" data-toggle="collapse" data-target="#sensor2">
+				<h4>Sensor2</h4>
+			</li>
+				<table class="table" id="sensor2">
+					<tr><th>Date</th><th>Value</th></tr>
+				</table>
+			<li class="list-group-item" data-toggle="collapse" data-target="#sensor3">
+				<h4>Sensor3</h4>
+			</li>
+				<table class="table" id="sensor3">
+					<tr><th>Date</th><th>Value</th></tr>
+				</table>
+			<li class="list-group-item" data-toggle="collapse" data-target="#sensor4">
+				<h4>Sensor4</h4>
+			</li>
+				<table class="table" id="sensor4">
+					<tr><th>Date</th><th>Value</th></tr>
+				</table>
+		</ul>
+	</div>
+	<div class="col-sm-8">
+		<canvas id="myChart"></canvas>
+	</div>
+</div>
+
+</div>
+
+<div class="footer">
+
+</div>
+
+<script>
+var my_data = ##MY_DATA##;
+for (let j = 1; j <= 4; j++) {
+	for (let i = 0; i < my_data[0].length; i++) {
+			var row = document.createElement("tr");
+
+			var table_data = document.createElement("td");
+			var data_text = document.createTextNode(my_data[0][i]);
+			table_data.appendChild(data_text);
+			row.appendChild(table_data)
+
+			var table_data = document.createElement("td");
+			var data_text = document.createTextNode(my_data[j][i]);
+			table_data.appendChild(data_text);
+			row.appendChild(table_data);
+
+			var target = document.getElementById("sensor"+String(j));
+			target.appendChild(row)
+	}
+}
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'line',
+
+    data: {
+        labels: my_data[0],
+        datasets: [{
+            label: "Sensor1",
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+                ],
+            borderColor: [
+                'rgba(255, 99, 132, 0.2)'
+                ],
+	    data: my_data[1],
+            fill: false,
+        },
+        {
+            label: "Sensor2",
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+                ],
+            borderColor: [
+                'rgba(54, 162, 235, 0.2)'
+                ],
+	    data: my_data[2],
+            fill: false,
+        },
+        {
+            label: "Sensor3",
+            backgroundColor: [
+                'rgba(255, 206, 86, 0.2)'
+                ],
+            borderColor: [
+                'rgba(255, 206, 86, 0.2)'
+                ],
+	    data: my_data[3],
+            fill: false,
+        },
+        {
+            label: "Sensor4",
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.2)'
+                ],
+	    data: my_data[4],
+            fill: false,
+        }],
+	},
+	options: {
+		scales: {
+			xAxes: [{	
+				scaleLabel: {
+					display: true,
+					labelString: "Date"
+				}
+				
+			}],
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: "Sensor values"
+				}
+			}]
+		}
+	}
+});
+</script>
+
+</body>
+</html>
