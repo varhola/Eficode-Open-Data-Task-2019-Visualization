@@ -62,7 +62,7 @@ def main():
 	password = input("Password: ")
 
 	data = {
-		"email": "valtteri.arhola@gmail.com",
+		"email": "<email>",
 		"password": password
 	}
 
